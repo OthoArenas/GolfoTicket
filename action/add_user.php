@@ -116,13 +116,13 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				$content = new SendGrid\Content("text/plain", $message);
 				$mail = new SendGrid\Mail($from, $subject, $to, $content);
 
-				$apiKey = getenv('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');
+				$apiKey = getenv('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');
 				$sg = new \SendGrid($apiKey);
 
 				$response = $sg->client->mail()->send()->post($mail);
-				echo $response->statusCode();
-				echo $response->headers();
-				echo $response->body();
+				// echo $response->statusCode();
+				// echo $response->headers();
+				// echo $response->body();
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
