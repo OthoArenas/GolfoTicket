@@ -112,7 +112,7 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 
 				$from = new SendGrid\Email("Golfo Ticket Support", "golfoticketsupport@golfoticket.com");
 				$subject = "Código de Activación de su cuenta en Golfo Ticket";
-				$to = new SendGrid\Email($name . ' ' . $lastname, $email);
+				$to = new SendGrid\Email(null, $email);
 				$content = new SendGrid\Content("text/plain", $message);
 				$mail = new SendGrid\Mail($from, $subject, $to, $content);
 
