@@ -1,0 +1,13 @@
+{
+	"name": "othoarenas/golfoticket",
+	"description": "Golfo Ticket Support System",
+	"authors": [
+		{
+			"name": "Othoniel Eduardo Salazar Arenas",
+			"email": "othosalazar@gmail.com"
+		}
+	],
+	"require": {
+		"sendgrid/sendgrid": "~5.0.9"
+	}
+}
