@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../config/config.php");
-require 'vendor/autoload.php';
+require("sendgrid-php/sendgrid-php.php");
 
 $id = $_SESSION['user_id'];
 $query = mysqli_query($con, "SELECT * FROM user WHERE id=\"$id\";");
@@ -110,19 +110,19 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 
 				mail($to, $subject, $message, $headers);
 
-				// $from = new SendGrid\Email("Golfo Ticket Support", "golfoticketsupport@golfoticket.com");
-				// $subject = "Código de Activación de su cuenta en Golfo Ticket";
-				// $to = new SendGrid\Email($name . ' ' . $lastname, $email);
-				// $content = new SendGrid\Content("text/plain", $message);
-				// $mail = new SendGrid\Mail($from, $subject, $to, $content);
+				$from = new SendGrid\Email("Golfo Ticket Support", "golfoticketsupport@golfoticket.com");
+				$subject = "Código de Activación de su cuenta en Golfo Ticket";
+				$to = new SendGrid\Email($name . ' ' . $lastname, $email);
+				$content = new SendGrid\Content("text/plain", $message);
+				$mail = new SendGrid\Mail($from, $subject, $to, $content);
 
-				// $apiKey = getenv('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');
-				// $sg = new \SendGrid($apiKey);
+				$apiKey = getenv('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');
+				$sg = new \SendGrid($apiKey);
 
-				// $response = $sg->client->mail()->send()->post($mail);
-				// echo $response->statusCode();
-				// echo $response->headers();
-				// echo $response->body();
+				$response = $sg->client->mail()->send()->post($mail);
+				echo $response->statusCode();
+				echo $response->headers();
+				echo $response->body();
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
