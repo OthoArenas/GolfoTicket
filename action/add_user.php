@@ -120,9 +120,9 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				$sg = new \SendGrid($apiKey);
 
 				$response = $sg->client->mail()->send()->post($mail);
-				// echo $response->statusCode();
-				// echo $response->headers();
-				// echo $response->body();
+				echo $response->statusCode();
+				echo $response->headers();
+				echo $response->body();
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
