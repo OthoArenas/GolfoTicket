@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../config/config.php");
-require "../vendor/autoload.php";
+require "../sendgrid-php/sendgrid-php.php";
 
 $id = $_SESSION['user_id'];
 $query = mysqli_query($con, "SELECT * FROM user WHERE id=\"$id\";");
