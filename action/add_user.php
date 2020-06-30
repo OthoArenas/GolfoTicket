@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../config/config.php");
-require "../sendgrid-php/sendgrid-php.php";
+require "../vendor/autoload.php";
 
 $id = $_SESSION['user_id'];
 $query = mysqli_query($con, "SELECT * FROM user WHERE id=\"$id\";");
@@ -110,38 +110,39 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 
 				mail($to, $subject, $message, $headers);
 
-				$from = new SendGrid\Email("Golfo Ticket Support", "golfoticketsupport@golfoticket.com");
-				$subject = "Código de Activación de su cuenta en Golfo Ticket";
-				$to = new SendGrid\Email('User', $email);
-				$content = new SendGrid\Content("text/plain", $message);
-				$mail = new SendGrid\Mail($from, $subject, $to, $content);
+				// $from = new SendGrid\Email("Golfo Ticket Support", "golfoticketsupport@golfoticket.com");
+				// $subject = "Código de Activación de su cuenta en Golfo Ticket";
+				// $to = new SendGrid\Email(null, $email);
+				// $content = new SendGrid\Content("text/plain", $message);
+				// $mail = new SendGrid\Mail($from, $subject, $to, $content);
 
-				$apiKey = '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';
-				$sg = new \SendGrid($apiKey);
+				// $apiKey = getenv('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');
+				// $sg = new \SendGrid($apiKey);
 
-				$response = $sg->client->mail()->send()->post($mail);
-				echo $response->statusCode();
-				echo $response->headers();
-				echo $response->body();
+				// $response = $sg->client->mail()->send()->post($mail);
+				// echo $response->statusCode();
+				// echo $response->headers();
+				// echo $response->body();
 
-				// $newEmail = new \SendGrid\Mail\Mail();
-				// $newEmail->setFrom("golfoticketsupport@golfoticket.com", "Golfo Ticket Support");
-				// $newEmail->setSubject("Código de Activación de su cuenta en Golfo Ticket");
-				// $newEmail->addTo($email, "User");
-				// $newEmail->addContent("text/plain", $message);
-				// $newEmail->addContent(
-				// 	"text/html",
-				// 	$message
-				// );
-				// $sendgrid = new \SendGrid('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');
-				// try {
-				// 	$response = $sendgrid->send($newEmail);
-				// 	print $response->statusCode() . "\n";
-				// 	print_r($response->headers());
-				// 	print $response->body() . "\n";
-				// } catch (Exception $e) {
-				// 	echo 'Caught exception: ' . $e->getMessage() . "\n";
-				// }
+				$newEmail = new \SendGrid\Mail\Mail();
+				$newEmail->setFrom("golfoticketsupport@golfoticket.com", "Golfo Ticket Support");
+				$newEmail->setSubject("Código de Activación de su cuenta en Golfo Ticket");
+				$newEmail->addTo($email, "User");
+				$newEmail->addContent("text/plain", $message);
+				$newEmail->addContent(
+					"text/html",
+					$message
+				);
+				$sendgrid = new \SendGrid('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');
+				try {
+					$response = $sendgrid->send($newEmail);
+					print $response->statusCode() . "\n";
+					print_r($response->headers());
+					print $response->body() . "\n";
+					print "$message";
+				} catch (Exception $e) {
+					echo 'Caught exception: ' . $e->getMessage() . "\n";
+				}
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
