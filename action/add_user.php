@@ -133,7 +133,7 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 					"text/html",
 					$message
 				);
-				$sendgrid = new \SendGrid(getenv('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'));
+				$sendgrid = new \SendGrid('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');
 				try {
 					$response = $sendgrid->send($newEmail);
 					print $response->statusCode() . "\n";
