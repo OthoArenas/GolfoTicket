@@ -146,15 +146,15 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				// 	echo 'Caught exception: ' . $e->getMessage() . "\n";
 				// }
 
-				$mgClient = new Mailgun('442e33b4bfa67e0f813c53391daa00da-913a5827-f89d8cbd');
+				$mgClient = Mailgun::create('442e33b4bfa67e0f813c53391daa00da-913a5827-f89d8cbd', 'https://api.mailgun.net/v3/sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org');
 				$domain = "sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org";
-				# Make the call to the client.
-				$result = $mgClient->sendMessage($domain, array(
+				$params = array(
 					'from'	=> 'Support System <golfoticket@sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org>',
 					'to'	=> $email,
 					'subject' => 'Código de Activación de su cuenta en Golfo Ticket',
 					'text'	=> $message
-				));
+				);
+				$mg->messages()->send($domain, $params);
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
