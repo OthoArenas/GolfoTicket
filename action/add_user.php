@@ -146,7 +146,8 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				// 	echo 'Caught exception: ' . $e->getMessage() . "\n";
 				// }
 
-				$mgClient = Mailgun::create('442e33b4bfa67e0f813c53391daa00da-913a5827-f89d8cbd', 'https://api.mailgun.net/v3/sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org');
+				$mg = Mailgun::create('442e33b4bfa67e0f813c53391daa00da-913a5827-f89d8cbd'); // For US servers
+
 				$domain = "sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org";
 				$params = array(
 					'from'	=> 'Support System <golfoticket@sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org>',
@@ -155,6 +156,7 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 					'text'	=> $message
 				);
 				$mg->messages()->send($domain, $params);
+				echo "yes!";
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
