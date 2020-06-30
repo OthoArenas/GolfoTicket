@@ -125,12 +125,12 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				// echo $response->body();
 
 				$newEmail = new \SendGrid\Mail\Mail();
-				$newEmail->setFrom("dsign.studio.solutions@gmail.com", "Golfo Ticket Support");
+				$newEmail->setFrom("othosalazar@gmail.com", "Golfo Ticket Support");
 				$newEmail->setSubject("Código de Activación de su cuenta en Golfo Ticket");
 				$newEmail->addTo($email, null);
 				// $newEmail->addContent("text/plain", $message);
 				$newEmail->addContent("text/html", $message);
-				$sendgrid = new \SendGrid('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');
+				$sendgrid = new \SendGrid('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');
 				try {
 					$response = $sendgrid->send($newEmail);
 					print $response->statusCode() . "\n";
