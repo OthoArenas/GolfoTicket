@@ -3,6 +3,8 @@ session_start();
 include("../config/config.php");
 require "../vendor/autoload.php";
 
+use Mailgun\Mailgun;
+
 $id = $_SESSION['user_id'];
 $query = mysqli_query($con, "SELECT * FROM user WHERE id=\"$id\";");
 while ($row = mysqli_fetch_array($query)) {
@@ -124,25 +126,35 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				// echo $response->headers();
 				// echo $response->body();
 
-				$newEmail = new \SendGrid\Mail\Mail();
-				$newEmail->setFrom("dsign.studio.solutions@gmail.com", "Golfo Ticket Support");
-				$newEmail->setSubject("Código de Activación de su cuenta en Golfo Ticket");
-				$newEmail->addTo($email, "User");
-				$newEmail->addContent("text/plain", $message);
-				$newEmail->addContent(
-					"text/html",
-					$message
-				);
-				$sendgrid = new \SendGrid('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');
-				try {
-					$response = $sendgrid->send($newEmail);
-					print $response->statusCode() . "\n";
-					print_r($response->headers());
-					print $response->body() . "\n";
-					print "$message";
-				} catch (Exception $e) {
-					echo 'Caught exception: ' . $e->getMessage() . "\n";
-				}
+				// $newEmail = new \SendGrid\Mail\Mail();
+				// $newEmail->setFrom("dsign.studio.solutions@gmail.com", "Golfo Ticket Support");
+				// $newEmail->setSubject("Código de Activación de su cuenta en Golfo Ticket");
+				// $newEmail->addTo($email, "User");
+				// $newEmail->addContent("text/plain", $message);
+				// $newEmail->addContent(
+				// 	"text/html",
+				// 	$message
+				// );
+				// $sendgrid = new \SendGrid('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');
+				// try {
+				// 	$response = $sendgrid->send($newEmail);
+				// 	print $response->statusCode() . "\n";
+				// 	print_r($response->headers());
+				// 	print $response->body() . "\n";
+				// 	print "$message";
+				// } catch (Exception $e) {
+				// 	echo 'Caught exception: ' . $e->getMessage() . "\n";
+				// }
+
+				$mgClient = new Mailgun('442e33b4bfa67e0f813c53391daa00da-913a5827-f89d8cbd');
+				$domain = "sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org";
+				# Make the call to the client.
+				$result = $mgClient->sendMessage($domain, array(
+					'from'	=> 'Support System <golfoticket@sandbox58a9ae3fdae443c99b99d9e865f3daa8.mailgun.org>',
+					'to'	=> $email,
+					'subject' => 'Código de Activación de su cuenta en Golfo Ticket',
+					'text'	=> $message
+				));
 			} else {
 				$errors[] = "Lo sentimos, algo ha salido mal. Intenta nuevamente." . mysqli_error($con);
 			}
