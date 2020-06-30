@@ -106,11 +106,11 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				$message .= "<p>A continuación se muestra un link para la Activación de tu cuenta en Golfo Ticket. </p></br>";
 				$message .= $activationUrl;
 
-				$headers = "From: Golfo Ticket Support <golfoticketsupport@golfoticket.com>\r\n";
-				$headers .= "Reply-To: golfoticketsupport@golfoticket.com\r\n";
-				$headers .= "Content-type: text/html\r\n";
+				// $headers = "From: Golfo Ticket Support <golfoticketsupport@golfoticket.com>\r\n";
+				// $headers .= "Reply-To: golfoticketsupport@golfoticket.com\r\n";
+				// $headers .= "Content-type: text/html\r\n";
 
-				mail($to, $subject, $message, $headers);
+				// mail($to, $subject, $message, $headers);
 
 				// $from = new SendGrid\Email("Golfo Ticket Support", "golfoticketsupport@golfoticket.com");
 				// $subject = "Código de Activación de su cuenta en Golfo Ticket";
