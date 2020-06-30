@@ -125,7 +125,7 @@ if ($rol == 3 || !isset($_SESSION['user_id'])) {
 				// echo $response->body();
 
 				$newEmail = new \SendGrid\Mail\Mail();
-				$newEmail->setFrom("golfoticketsupport@golfoticket.com", "Golfo Ticket Support");
+				$newEmail->setFrom("dsign.studio.solutions@gmail.com", "Golfo Ticket Support");
 				$newEmail->setSubject("Código de Activación de su cuenta en Golfo Ticket");
 				$newEmail->addTo($email, "User");
 				$newEmail->addContent("text/plain", $message);
